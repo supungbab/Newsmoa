@@ -1,12 +1,17 @@
 const userModel = require('../models/userModel');
 
 const userController = {
-	createUser : async(id,pwd,salt,nickname)=>{
+	createUser : async(id,pw,nickname,name,birth,sex,email,address,number)=>{
 		const result = await userModel.create({
 			id : id,
-			pwd : pwd,
-			salt : salt,
-			nickname : nickname
+			pw : pw,
+			nickname : nickname,
+			name : name,
+			birth : birth,
+			sex : sex,
+			email : email,
+			address : address,
+			number : number,
 		});
 		
 		return result;
