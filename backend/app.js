@@ -15,7 +15,7 @@ db.once('open', function callback () {
     console.log("mongo db connection OK.");
 });
 
-
+app.use(bodyParser.json());
 //app.use('/',testIndex);
 app.use('/users',user);
 app.use('/boards',board);

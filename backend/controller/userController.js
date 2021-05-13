@@ -1,30 +1,52 @@
 const userModel = require('../models/userModel');
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
+const YOUR_SECRET_KEY = process.env.SECRET_KEY;
+
 
 const userController = {
-	createUser : async(id,pw,nickname,name,birth,sex,email,address,number)=>{
-		const result = await userModel.create({
-			id : id,
-			pw : pw,
-			nickname : nickname,
-			name : name,
-			birth : birth,
-			sex : sex,
-			email : email,
-			address : address,
-			number : number,
-		});
-		
-		return result;
+	createToken : async (req, res, next) => {
+		try {
+			const user = await User.find(req.body);
+			if (user.length) {
+				const token = jwt.sign({
+					user_id: user[0].user_id
+				}, YOUR_SECRET_KEY, {
+					expiresIn: '1h'
+				});
+				res.cookie('user', token);
+				res.status(201).json({
+					result: 'ok',
+					token
+				});
+			} else {
+				res.status(400).json({ error: 'invalid user' });
+			}
+		} catch (err) {
+			console.error(err);
+			next(err);
+		}
+	},
+	createUser : async (req, res, next) => {
+		try {
+			const user = await new userModel(req.body).save();
+			res.status(201).json({
+				result: 'ok',
+				user: user
+			});
+		} catch (err) {
+			console.error(err);
+			next(err);
+		}
 	},
 	
 	findMyInfo : async(id)=>{
 		const result = await userModel.find().where('id').equals(id).select('salt nickname');
-		console.log(result[0]);
 		return result[0];
 	},
 	
 	signCheck : async(hashed)=>{
-		const result = await userModel.find().where('pwd').equals(hashed).select(' nickname');
+		const result = await userModel.find().where('pwd').equals(hashed).select('nickname');
 		return result;
 	},
 }

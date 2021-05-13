@@ -1,10 +1,48 @@
 <!DOCTYPE html>
     <head>
-        
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <script>
+            function to_ajax(){
+                var queryString = $("form[name=testForm]").serialize() ;
+
+                $.ajax({
+                    type : 'post',
+                    url : 'http://localhost:3000/users/signin',
+                    data : queryString,
+                    dataType : 'json',
+                    error: function(xhr, status, error){
+                        alert(error);
+                    },
+                    success : function(json){
+                        alert(json)
+                    },
+                });
+            }
+        </script>
     </head>
     <body>
-        <from>
-            <input type="button" onclick="test()" />
-        </from>
+        회원가입
+        <form name="testForm" id="testForm">
+            <label for="id">아이디</label>
+            <input type="text" id="id" />
+            <label for="pw">비밀번호</label>
+            <input type="text" id="pw" />
+            <label for="nickname">별명</label>
+            <input type="text" id="nickname" />
+            <label for="name">이름</label>
+            <input type="text" id="name" />
+            <label for="birth">생년월일</label>
+            <input type="text" id="birth" />
+            <label for="sex">성별</label>
+            <input type="text" id="sex" />
+            <label for="email">E-mail</label>
+            <input type="text" id="email" />
+            <label for="address">주소</label>
+            <input type="text" id="address" />
+            <label for="number">전화번호</label>
+            <input type="text" id="number" />
+
+            <input type="submit" value="로그인">
+        </form>
     </body>
 </html>
