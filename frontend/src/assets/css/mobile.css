@@ -1,0 +1,26 @@
+@media (max-width: 700px) {
+  .gnb__menu {
+    width: 100%;
+  }
+
+  .main {
+    width: 100%;
+  }
+
+  .news {
+    height: 80px;
+  }
+
+  .news__img {
+    width: 120px;
+  }
+
+  .aside,
+  .gnb__search,
+  .header__text,
+  .news__contents,
+  .news__like,
+  .news__comment {
+    display: none;
+  }
+}
