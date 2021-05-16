@@ -1,6 +1,6 @@
 <template>
     <article>
-          <a href="" class="news">
+          <router-link to="/detail" class="news">
             <img
               src="https://source.unsplash.com/random"
               alt=""
@@ -32,7 +32,7 @@
                 </div>
               </div>
             </div>
-          </a>
+          </router-link>
         </article>
 </template>
 

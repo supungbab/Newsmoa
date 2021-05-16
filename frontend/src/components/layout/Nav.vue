@@ -11,8 +11,8 @@
         </ul>
 
         <form action="" class="gnb__search">
-          <input type="text" />
-          <button type="submit">검색</button>
+          <input type="text" class="input"/>
+          <button type="submit" class="btn__sm--primary">검색</button>
         </form>
       </nav>
 </template>
@@ -46,5 +46,9 @@ export default {
 .gnb__menu .active a {
   font-weight: bold;
   color: var(--primary-color);
+}
+
+.gnb__search {
+  display: flex;
 }
 </style>
