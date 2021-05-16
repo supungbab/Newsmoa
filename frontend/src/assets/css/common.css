@@ -3,7 +3,7 @@
 }
 
 body {
-  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+  font-family: 'Noto Sans KR', sans-serif;
   margin: 0;
 }
 
@@ -61,7 +61,7 @@ button:hover {
   line-height: 34px;
 }
 
-.btn-primary {
+.btn--primary {
   background-color: var(--primary-color);
   color: #fff;
 }
@@ -88,6 +88,38 @@ button:hover {
   width: 100%;
   height: 28px;
   padding: 0 7px;
+  outline: none;
+  transition: ease-in 0.1s border;
+}
+
+.input:hover,
+.input:focus {
+  border-color: #191919;
+}
+
+.input-group {
+  position: relative;
+  width: 100%;
+  margin: 10px 0;
+}
+
+.input-group label {
+  position: absolute;
+  top: 10px;
+  left: 8px;
+  opacity: 0.8;
+  transition: ease-in 0.1s;
+}
+
+.input-group label.active {
+  top: 2px;
+  font-size: 11px;
+}
+
+.input-group .input {
+  width: 100%;
+  height: 48px;
+  vertical-align: middle;
 }
 
 /* 레이아웃 : layout */
