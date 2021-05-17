@@ -7,19 +7,19 @@
         <News/>
         <News/>
       </section>
-      <Aside/>
+      <aside class="aside">
+         <TrendingList/>
+     </aside>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import Aside from '@/components/layout/Aside.vue'
 import News from '@/components/News'
 
 export default {
   name: 'Home',
   components: {
-    Aside,
     News
   }
 }

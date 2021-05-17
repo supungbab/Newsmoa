@@ -16,16 +16,38 @@
           <button type="button">
             <span> 다크모드 </span>
           </button>
-          <a href="" class="btn">로그인</a>
-          <a href="" class="btn btn-primary">회원가입</a>
+          <button class="btn" @click="showModal">로그인</button>
+          <button class="btn btn--primary">회원가입</button>
         </div>
+        <LoginModal @close="closeModal" v-if="modal"/>
       </header>
 </template>
 
 <script>
+import LoginModal from '@/components/login.vue'
+
 export default {
-    name: 'Header'
+    name: 'Header',
+    components: {
+      LoginModal
+    },
+    data() {
+      return {
+        modal: false,
+        message: ''
+      }
+    },
+    methods: {
+      showModal() {
+        this.modal = true
+      },
+      closeModal() {
+        this.modal = false
+      }
+    }
+    
 }
+
 </script>
 
 <style scoped>
