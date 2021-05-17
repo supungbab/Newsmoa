@@ -5,3 +5,8 @@
 ## 2021-05-12 댓글,좋아요 get/put/delete api 완료
 
 ## 2021-05-17 유저 회원가입 api, 토큰 조회 미들웨어 api, 로그인 api 완료 
+
+Endpoint : localhost:3000
+
+보드 관련 PATH : /boards
+유저 관련 PATH : /users
