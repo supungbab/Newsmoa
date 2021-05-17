@@ -31,11 +31,11 @@ const userSchema = new mongoose.Schema({
 	},
 	nickname : {type : String, required : true, unique : true},
 	name : {type : String, required : true},
-	birth : { type: Date, default: Date.now, required : true },
+	birth : { type: String, match:/^\d{4}-\d{2}-\d{2}$/, required : true },
 	sex : {type : Boolean, required : true},
 	email : {type : String, required : true},
 	address : {type : String, required : true},
-	number : {type:Number, match:/^\d{3}-\d{3,4}-\d{4}$/},
+	number : {type:String, match:/^\d{3}-\d{3,4}-\d{4}$/},
 	fit : String,
 	taste : Array
 });
