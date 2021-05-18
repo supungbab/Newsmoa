@@ -18,11 +18,11 @@ router.put('/:index/like', boardController.putLike);
 router.get('/:index/like', boardController.getLike);
 
 //댓글 입력, 가져오기 api
-router.put('/:index/comment', boardController.putComment);
+router.put('/:index/comment', verifyToken, boardController.putComment);
 router.get('/:index/comment', boardController.getComment);
 
 //댓글 삭제 api
-router.delete('/:index/comment',boardController.deleteComment);
+router.delete('/:index/comment', verifyToken, boardController.deleteComment);
 
 console.log("boards done");
 

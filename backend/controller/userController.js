@@ -1,7 +1,8 @@
 const userModel = require('../models/userModel');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
-const SECRET_KEY = process.env.SECRET_KEY;
+//const SECRET_KEY = process.env.SECRET_KEY;
+const SECRET_KEY = "NewsmoaKey";
 
 
 const userController = {
@@ -39,15 +40,15 @@ const userController = {
 				Content-Type : application/json
 			},
 			유저 생성 {
-				id: 'asdf',
-				pw: 'asdfasdf',
-				nickname: '갱맹',
-				name: '경명호',
-				birth: '1997-11-01',
-				sex: 1,
-				email: 'rhtn388@naver.com',
-				address: '부천시 장말로',
-				number: '010-5320-3057'
+				"id": "test",
+				"pw": "test",
+				"nickname": "갱맹",
+				"name": "경명호",
+				"birth": "1997-11-01",
+				"sex": 1,
+				"email": "rhtn388@naver.com",
+				"address": "부천시 장말로",
+				"number": "010-5320-3057"
 			}
 			*/
 			console.log("유저 생성",req.body);

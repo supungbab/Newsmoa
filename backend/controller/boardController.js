@@ -14,10 +14,24 @@ const boardController = {
 	},
 	putLike : async (req, res)=>{
 		try{
+			//req.body.id 이거 바꾸기 = > res.locals.userId
 			console.log("Like put 실행",req.params.index);
-			const result = await boardModel.updateOne({index : req.params.index},{
-				$addToSet:{likes:res.locals.userId}
-			});
+			let like = await boardModel.find({index:req.params.index},{_id:false, likes:true});
+			like = like[0].likes;
+			console.log(like,like.indexOf(req.body.id)) //테스트용 입니다.
+			if(like.indexOf(req.body.id)==-1){
+				const result = await boardModel.updateOne({index : req.params.index},{
+					$addToSet:{likes:req.body.id} //테스트용 입니다.
+					//$addToSet:{likes:res.locals.userId}
+				});
+			}
+			else{
+				console.log("성공?");
+				const result = await boardModel.updateOne({index : req.params.index},{
+					$pull:{likes:req.body.id} //테스트용 입니다.
+					//$pull:{likes:res.locals.userId}
+				});
+			}
 			res.sendStatus(200);
 		} catch(error){
 			res.sendStatus(500).json({ error: error.toString()} );
