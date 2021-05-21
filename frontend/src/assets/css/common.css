@@ -137,6 +137,15 @@ button:hover {
   border-color: #191919;
 }
 
+.input-group label {
+  display: inline-block;
+  margin-bottom: 3px;
+}
+
+.input-group {
+  margin-bottom: 10px;
+}
+
 /* 레이아웃 : layout */
 .wrap::after {
   content: '';

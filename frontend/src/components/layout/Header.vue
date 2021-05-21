@@ -19,7 +19,7 @@
           <button id="btn-openLogin" class="btn" @click="showModal($event)">로그인</button>
           <button id="btn-openSignup" class="btn--primary" @click="showModal($event)">회원가입</button>
         </div>
-        <LoginModal @close="closeModal" v-if="loginModal"/>
+        <LoginModal @close="closeModal" @switch="switchModal" v-if="loginModal"/>
         <SignupModal @close="closeModal" @switch="switchModal" v-if="signupModal"/>
       </header>
 </template>

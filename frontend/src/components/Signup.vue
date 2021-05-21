@@ -103,20 +103,8 @@ export default {
 
 
 <style scoped>
-
-.input-group label {
-    display: inline-block;
-    margin-bottom: 3px;
-}
-
-.input-group {
-    margin-bottom: 10px;
-}
-
 .btn {
     background-color: #f1f3f5;
     margin-right: 10px;
 }
-
-
 </style>
