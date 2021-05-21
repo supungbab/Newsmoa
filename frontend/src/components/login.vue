@@ -1,6 +1,5 @@
 <template>
-
-<transition name="modal" appear>
+<transition name="modal-t" appear>
     <div class="wrap--modal" @click.self="$emit('close')">
         <div class="modal">
             <div class="modal__img">
@@ -60,71 +59,4 @@ export default {
 
 
 <style scoped>
-.wrap--modal {
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.5);
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1;
-}
-
-.modal {
-    position: fixed;
-    display: flex;
-    width: 600px;
-    height: 480px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    background: #fff;
-}
-
-.modal__img {
-    width: 260px;
-    line-height: 480px;
-    background-color: var(--primary-color);
-    margin: 0 auto;
-}
-
-.modal__img img {
-    width: 100%;
-    vertical-align: middle;
-}
-
-.modal__contents {
-    width: 70%;
-    box-sizing: border-box;
-    padding: 40px;
-}
-
-.modal__form button{
-    margin-top: 20px;
-}
-
-.modal__title {
-    font-weight: normal;
-    font-size: 25px;
-    padding: 20px 0;
-}
-
-.modal__close-btn {
-    height: 0;
-    border: 0;
-    background-color: transparent;
-}
-
-.modal__close-btn::before {
-    position: absolute;
-    display: inline-block;
-    top: 0;
-    right: 0;
-    padding: 10px;
-    content: '';
-    width: 30px;
-    height: 30px;
-    background: url(../assets/image/icon/close.svg) center center no-repeat;
-    background-size: 30px;
-}
 </style>
