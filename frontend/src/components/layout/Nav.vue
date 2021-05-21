@@ -11,7 +11,7 @@
         </ul>
 
         <form action="" class="gnb__search">
-          <input type="text" class="input"/>
+          <input type="text" class="input__sm"/>
           <button type="submit" class="btn__sm--primary">검색</button>
         </form>
       </nav>

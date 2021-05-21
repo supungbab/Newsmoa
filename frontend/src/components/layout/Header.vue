@@ -16,33 +16,43 @@
           <button type="button">
             <span> 다크모드 </span>
           </button>
-          <button class="btn" @click="showModal">로그인</button>
-          <button class="btn btn--primary">회원가입</button>
+          <button id="btn-openLogin" class="btn" @click="showModal($event)">로그인</button>
+          <button id="btn-openSignup" class="btn--primary" @click="showModal($event)">회원가입</button>
         </div>
-        <LoginModal @close="closeModal" v-if="modal"/>
+        <LoginModal @close="closeModal" v-if="loginModal"/>
+        <SignupModal @close="closeModal" @switch="switchModal" v-if="signupModal"/>
       </header>
 </template>
 
 <script>
 import LoginModal from '@/components/login.vue'
+import SignupModal from '@/components/Signup.vue'
 
 export default {
     name: 'Header',
     components: {
-      LoginModal
+      LoginModal,
+      SignupModal
     },
     data() {
       return {
-        modal: false,
-        message: ''
+        loginModal: false,
+        signupModal: false,
+        modalId: ''
       }
     },
     methods: {
-      showModal() {
-        this.modal = true
+      showModal(event) {
+        if (event.currentTarget.id === 'btn-openLogin') this.loginModal = true;
+        if (event.currentTarget.id === 'btn-openSignup') this.signupModal = true;
       },
       closeModal() {
-        this.modal = false
+        this.loginModal = false;
+        this.signupModal = false;
+      },
+      switchModal() {
+        this.loginModal = !this.loginModal;
+        this.signupModal = !this.signupModal;
       }
     }
     

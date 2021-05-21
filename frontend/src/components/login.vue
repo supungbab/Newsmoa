@@ -2,7 +2,7 @@
 <transition name="modal-t" appear>
     <div class="wrap--modal" @click.self="$emit('close')">
         <div class="modal">
-            <div class="modal__img">
+            <div class="modal__aside">
                 <img src="../assets/image/login.png" alt="" />
             </div>
             <div class="modal__contents">
@@ -59,4 +59,29 @@ export default {
 
 
 <style scoped>
+
+.input-group {
+  position: relative;
+  width: 100%;
+  margin: 10px 0;
+}
+
+.input-group label {
+  position: absolute;
+  top: 10px;
+  left: 8px;
+  opacity: 0.8;
+  transition: ease-in 0.1s;
+}
+
+.input-group label.active {
+  top: 2px;
+  font-size: 11px;
+}
+
+.input-group .input {
+  width: 100%;
+  height: 48px;
+  vertical-align: middle;
+}
 </style>
