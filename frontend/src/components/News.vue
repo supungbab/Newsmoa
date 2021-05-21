@@ -146,4 +146,20 @@ export default {
   line-height: 20px;
   overflow: hidden;
 }
+
+@media (max-width: 700px) {
+  .news {
+    height: 80px;
+  }
+
+  .news__img {
+    width: 120px;
+  }
+
+  .news__contents,
+  .news__like,
+  .news__comment {
+    display: none;
+  }
+}
 </style>

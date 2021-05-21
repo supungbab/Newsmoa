@@ -87,4 +87,10 @@ export default {
   padding-left: 10px;
   font-size: 14px;
 }
+
+@media (max-width: 700px) {
+  .header__text {
+    display: none;
+  }
+}
 </style>
