@@ -16,11 +16,13 @@
 <script>
 // @ is an alias to /src
 import News from '@/components/News'
+import TrendingList from '@/components/TrendingList'
 
 export default {
   name: 'Home',
   components: {
-    News
+    News,
+    TrendingList
   }
 }
 </script>
