@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const user = require('./api/user/index.js');
 const board = require('./api/board/index.js');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 const app = express();
 const port = 3000;
@@ -15,6 +16,7 @@ db.once('open', function callback () {
     console.log("mongo db connection OK.");
 });
 
+app.use(cors());
 app.use(bodyParser.json());
 //app.use('/',testIndex);
 app.use('/users',user);

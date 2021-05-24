@@ -4,13 +4,14 @@ const mongoose = require('mongoose');
 const boardSchema = new mongoose.Schema({
 	boardIdx : mongoose.Schema.Types.ObjectId,
     index : {type : String, required : true, unique : true},
-    //category : String,
-    //media : String,
-    //title : String,
-    //summary : String,
-    //date : Date,
-    //content : String,
-    //hits : Number,
+    topimg : String,
+    category : String,
+    media : String,
+    title : String,
+    summary : String,
+    date : Date,
+    content : String,
+    hits : Number,
     comments : {type : Array, required : true},
     likes: Array
 });

@@ -19,7 +19,7 @@ const userController = {
 				}, SECRET_KEY, {
 					expiresIn: '1h'
 				});
-				res.cookie('user', token);
+				//res.cookie('user', token);
 				res.status(201).json({
 					result: 'ok',
 					token

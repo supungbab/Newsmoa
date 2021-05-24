@@ -3,11 +3,43 @@ const boardModel = require('../models/boardModel');
 //https://velopert.com/545 insert 배열 관련
 
 const boardController = {
+	getBoards : async (req,res) =>{
+		try{
+			//console.log("Boards get 실행");
+			let boards = await boardModel.find({},{_id:false});
+			//console.log(boards);
+			res.json({
+				boards:boards
+			})
+		} catch(err){
+			res.sendStatus(500).json({ error: error.toString() });
+		}
+	},
+	getBoardDetail : async (req,res) =>{
+		try{
+			console.log("getBoardDetail 실행", req.params.index);
+			let board = await boardModel.find({index:req.params.index},{_id:false});
+			//console.log(board);
+			res.json({
+				board:board[0]
+			})
+		} catch(err){
+			res.sendStatus(500).json({ error: error.toString() });
+		}
+	},
 	createBoard : async (index)=>{
 		const result = await boardModel.create({
-			index:index,
-			likes:[],
-			comments:[]
+			index : index,
+			topimg : "https://imgnews.pstatic.net/image/origin/052/2021/05/21/1590737.jpg?type=nf132_90",
+			category : "it",
+			media : "naver",
+			title : index+"번 뉴스입니다.",
+			summary : index+"번 뉴스가 요약입니다.",
+			date : new Date(),
+			content : "여기는 "+index+"번 뉴스입니다. 뉴스 어쩌구 샬라샬라 비비디바비디부~",
+			hits : 0,
+			comments : [],
+			likes: []
 		});
 		
 		return result;

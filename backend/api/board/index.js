@@ -3,15 +3,16 @@ const router = express.Router();
 const boardController = require('../../controller/boardController');
 const { verifyToken } = require('../middlewares/authorization');
 
-router.get('/', function(req, res) {
-    res.send('test');
-});
+//게시글 전체, 게시글 디테일
+router.get('/', boardController.getBoards)
+router.get('/:index', boardController.getBoardDetail)
 
 //게시글 생성 임시
-router.get('/create', function(req, res) {
-    boardController.createBoard(4);
+router.get('/create/:index', function(req, res) {
+    boardController.createBoard(req.params.index);
     res.sendStatus(200);
 });
+
 
 //좋아요 입력, 가져오기 api
 router.put('/:index/like', boardController.putLike);
