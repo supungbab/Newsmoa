@@ -143,7 +143,24 @@ button:hover {
 }
 
 .input-group {
+  display: block;
   margin-bottom: 10px;
+}
+
+.input--error {
+  border-color: #9f3a38;
+  background-color: #fff4f4;
+}
+
+.input--error:hover,
+.input--error:focus {
+  border-color: #9f3a38;
+}
+
+.msg--error {
+  margin-top: 1px;
+  font-size: 14px;
+  color: #9f3a38;
 }
 
 /* 레이아웃 : layout */
