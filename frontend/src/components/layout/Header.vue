@@ -25,8 +25,8 @@
 </template>
 
 <script>
-import LoginModal from '@/components/login.vue'
-import SignupModal from '@/components/Signup.vue'
+import LoginModal from '@/views/login.vue'
+import SignupModal from '@/views/Signup.vue'
 
 export default {
     name: 'Header',
