@@ -5,6 +5,7 @@ import chromedriver_autoinstaller
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+import re
 
 chrome_ver = chromedriver_autoinstaller.get_chrome_version().split('.')[0]
 # 옵션 생성
@@ -43,6 +44,8 @@ for cat, selecetor in category.items():
     for j in 1,2,3,4,5:
         try:
             elem = browser.find_element_by_xpath("//*[@id='section_body']/ul[1]/li[" + str(j) + "]/dl/dt[2]/a")
+            soup = BeautifulSoup(browser.page_source, "lxml")
+            topimage = soup.select("#section_body > ul.type06_headline > li:nth-child(" + str(j)+ ") > dl > dt.photo > a > img")[0].get("src")
         except:
             elem = browser.find_element_by_xpath("//*[@id='section_body']/ul[1]/li[" + str(j) + "]/dl/dt/a")
 
@@ -63,11 +66,16 @@ for cat, selecetor in category.items():
             title = soup.select("#articleTitle")[0].text
             media = soup.select("#main_content > div.article_header > div.press_logo > a > img")[0].get("title")
             content = str(soup.select("#articleBodyContents")[0])
+            #content 글자만 추출
+            content = re.sub('<script.*?>.*?</script>', '', content, 0, re.I|re.S)
+            content = re.sub('<.+?>', '', content, 0, re.I|re.S)
+            content = re.sub('&nbsp;|\t|\r|\n', '', content)
+            content = re.match(r'.*?\▶', content).group(0) if re.match(r'.*?\▶', content) != None else content
+            content = content[:-1]
 
-            news = {"title": title, "date": datetime, "media": media, "category": cat, "content":content}
+            news = {"index": boards.find().count() + 1, "title": title, "date": datetime, "media": media, "category": cat, "content":content, "topimg": topimage}
             #print(news)
             x = boards.update({"title": title}, dict(news), upsert=True)
-
             
         finally:
             browser.back()
