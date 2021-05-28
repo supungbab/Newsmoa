@@ -1,5 +1,7 @@
 :root {
   --primary-color: #2541b2;
+
+  --line-color-light: #ebedef;
 }
 
 body {
@@ -14,7 +16,9 @@ input {
 h1,
 p,
 ul,
-ol {
+ol,
+dl,
+dd {
   margin: 0;
   padding: 0;
 }
@@ -24,7 +28,7 @@ a {
   text-decoration: none;
 }
 
-a:hover:not(.gnb__menu li a) {
+a:hover:not(.gnb__menu li a, .btn, .btn--primary) {
   text-decoration: underline;
 }
 
@@ -48,6 +52,11 @@ button:hover {
 
 .title {
   margin-bottom: 15px;
+}
+
+/* 텍스트 속성 */
+.text__sm {
+  font-size: 13px !important;
 }
 
 /* 버튼 */
@@ -236,6 +245,28 @@ button:hover {
   left: 50%;
   transform: translate(-50%, -50%);
   background: #fff;
+}
+
+.modal__sm {
+  position: fixed;
+  display: flex;
+  width: 300px;
+  min-height: 300px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+}
+
+.modal__sm .modal__contents {
+  width: 100%;
+}
+
+.modal__sm .modal__title {
+  padding: 0;
+  border-bottom: 1px solid #f1f3f5;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 .modal__aside {
