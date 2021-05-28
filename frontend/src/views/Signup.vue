@@ -60,53 +60,53 @@ import TextInput from '@/components/TextInput'
 
 
 export default {
-    name: 'SignupModal',
-    components: {
-        ValidationObserver,
-        ValidationProvider,
-        TextInput
-    },
-    data() {
-        return {
-            currentStep: 1,
-            user: {
-                id: '',
-                password: '',
-                passwordConfirm: '',
-                name: '',
-                birth: '',
-                sex: '',
-                email: '',
-                number: ''
-            }
-        }
-    },
-    computed: {
-        isLastStep() {
-            return this.currentStep === 2;
-        }
-    },
-    methods : {
-        nextStep() {
-            if (this.isLastStep) {
-                return this.onSubmit();
-            }
-            this.currentStep++;
-        },
-        prevStep() {
-            this.currentStep--;
-        },
-        onSubmit() {
-            console.log(this.user);
+  name: 'SignupModal',
+  components: {
+    ValidationObserver,
+    ValidationProvider,
+    TextInput
+  },
+  data() {
+    return {
+        currentStep: 1,
+        user: {
+          id: '',
+          password: '',
+          passwordConfirm: '',
+          name: '',
+          birth: '',
+          sex: '',
+          email: '',
+          number: ''
         }
     }
+  },
+  computed: {
+    isLastStep() {
+      return this.currentStep === 2;
+    }
+  },
+  methods : {
+    nextStep() {
+      if (this.isLastStep) {
+        return this.onSubmit();
+      }
+      this.currentStep++;
+    },
+    prevStep() {
+      this.currentStep--;
+    },
+    onSubmit() {
+      console.log(this.user);
+    }
+  }
 }
 </script>
 
 
 <style scoped>
 .btn {
-    background-color: #f1f3f5;
-    margin-right: 10px;
+  background-color: #f1f3f5;
+  margin-right: 10px;
 }
 </style>
