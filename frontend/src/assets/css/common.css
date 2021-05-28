@@ -114,6 +114,26 @@ button:hover {
   text-decoration: underline;
 }
 
+.btn--primary {
+  position: relative;
+}
+
+.btn--primary::before {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  content: '';
+  top: 0;
+  left: 0;
+  background: rgba(255, 255, 255, 0);
+  transition: background cubic-bezier(0.075, 0.82, 0.165, 1) 0.2s;
+}
+
+.btn--primary:hover::before {
+  display: block;
+  background: rgba(255, 255, 255, 0.2);
+}
+
 /* form 관련 속성 */
 .input {
   display: inline-block;
