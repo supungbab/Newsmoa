@@ -13,7 +13,7 @@
         <div class="modal__contents">
           <h1 class="modal__title">로그인</h1>
 
-          <form action="" class="modal__form">
+          <form method="post" class="modal__form">
             <div class="input-group">
               <label for="id">아이디</label>
               <input type="text" id="id" class="input" v-model="id" />
@@ -24,7 +24,7 @@
               <input type="password" id="password" class="input" v-model="password" />
             </div>
 
-            <button type="submit" class="btn btn--primary">로그인</button>
+            <button type="button" @click="login" class="btn btn--primary">로그인</button>
           </form>
         </div>
 
@@ -37,12 +37,28 @@
 </template>
 
 <script>
+import * as authApi from '@/api/auth'
+
 export default {
   name: 'LoginModal',
   data() {
     return {
       id: '',
       password: '',
+      isLogin: false
+    }
+  },
+  methods: {
+    login() {
+      authApi.login(this.id, this.password).then(res => {
+        console.log('res',res.status);
+        
+        this.isLogin = true;
+        this.$emit('close', this.isLogin);
+      }).catch(err => {
+        alert('아이디나 비밀번호를 확인해주세요.')
+        console.log(err);
+      })
     }
   }
 }

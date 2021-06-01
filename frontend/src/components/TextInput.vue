@@ -20,6 +20,7 @@ const attrs = {
   password: '비밀번호',
   passwordConfirm: '비밀번호 확인',
   name: '이름',
+  nkName: '닉네임 ',
   birth: '생일',
   sex: '성별',
   email: '이메일',

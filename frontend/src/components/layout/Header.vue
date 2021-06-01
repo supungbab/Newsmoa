@@ -40,7 +40,7 @@ export default {
       return {
         loginModal: false,
         signupModal: false,
-        isLogin: true
+        isLogin: false
       }
     },
     methods: {
@@ -48,7 +48,9 @@ export default {
         if (event.currentTarget.id === 'btn-openLogin') this.loginModal = true;
         if (event.currentTarget.id === 'btn-openSignup') this.signupModal = true;
       },
-      closeModal() {
+      closeModal(isLogin) {
+        console.log(isLogin)
+        this.isLogin = isLogin;
         this.loginModal = false;
         this.signupModal = false;
       },
