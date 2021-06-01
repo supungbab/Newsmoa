@@ -368,3 +368,55 @@ button:hover {
 .modal-t-leave-active .modal {
   transition: opacity 0.3s;
 }
+
+/* 아이콘 */
+.icon__comment,
+.icon__like,
+.icon__time {
+  position: relative;
+  padding-left: 15px;
+}
+
+.icon__comment span,
+.icon__like span {
+  padding-left: 10px;
+}
+
+.icon__time::before {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  padding: 0 2px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: url(../image/icon/clock.svg) no-repeat center;
+  background-size: 12px;
+}
+
+.icon__comment::before {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  left: 50%;
+  top: 50%;
+  padding: 0 2px;
+  transform: translate(-50%, -50%);
+  background: url(../image/icon/comment.svg) no-repeat center;
+  background-size: 12px;
+}
+
+.icon__like::before {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  left: 50%;
+  top: 50%;
+  padding: 0 2px;
+  transform: translate(-50%, -50%);
+  background: url(../image/icon/heart.svg) no-repeat center;
+  background-size: 12px;
+}

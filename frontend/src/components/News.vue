@@ -2,7 +2,7 @@
     <article>
           <router-link to="/detail" class="news">
             <img
-              src="https://source.unsplash.com/random"
+              src="@/assets/image/default/no_img.png"
               alt=""
               class="news__img"
             />
@@ -18,14 +18,16 @@
               <div class="news__info">
                 <div>
                   <span class="news__press">매일경제</span>
-                  <span class="news__time">11시간 전</span>
+                  <span class="news__time">
+                    <span class="icon__time blind"></span>11시간 전
+                  </span>
                 </div>
                 <div>
-                  <span class="news__comment">
+                  <span class="icon__comment">
                     <span class="blind">댓글</span>
                     <span class="cnt">5</span>
                   </span>
-                  <span class="news__like">
+                  <span class="icon__like">
                     <span class="blind">좋아요</span>
                     <span class="cnt">1</span>
                   </span>
@@ -59,6 +61,7 @@ export default {
 }
 
 .news__text-wrap {
+  width: 100%;
   position: relative;
   margin: 0 10px;
 }
@@ -75,52 +78,8 @@ export default {
   justify-content: space-between;
 }
 
-.news__comment,
-.news__like,
-.news__time {
-  position: relative;
-  padding-left: 15px;
-}
-
-.news__comment,
-.news__like {
-  margin-left: 15px;
-}
-
-.news__time::before {
-  content: '';
-  position: absolute;
-  width: 13px;
-  height: 13px;
-  left: 0;
-  top: 50%;
-  transform: translate(0, -50%);
-  background: url(../assets/image/icon/clock.svg);
-  background-size: 13px;
-}
-
-.news__comment::before {
-  content: '';
-  position: absolute;
-  width: 13px;
-  height: 13px;
-  left: 0;
-  top: 50%;
-  transform: translate(0, -50%);
-  background: url(../assets/image/icon/comment.svg);
-  background-size: 13px;
-}
-
-.news__like::before {
-  content: '';
-  position: absolute;
-  width: 13px;
-  height: 13px;
-  left: 0;
-  top: 50%;
-  transform: translate(0, -50%);
-  background: url(../assets/image/icon/heart.svg);
-  background-size: 13px;
+.news__press {
+  margin-right: 3px;
 }
 
 .news__title {

@@ -6,9 +6,9 @@
           <h1 class="news_detail__title">뉴스 제목입니다.</h1>
 
           <ul class="news-detail__info">
-            <li>12시간 전</li>
-            <li>댓글 2</li>
-            <li>좋아요 4</li>
+            <li><span class="icon__time blind"></span>12시간 전</li>
+            <li><span class="icon__comment blind"></span> 댓글 2</li>
+            <li><span class="icon__like blind"></span> 좋아요 4</li>
           </ul>
 
           <p class="news-detail__contents">
@@ -68,6 +68,10 @@ export default {
 
 .news-detail__info li {
   padding-right: 10px;
+}
+
+.news-detail__info li span {
+  padding:0 10px;
 }
 
 .news-detail__contents__img {
