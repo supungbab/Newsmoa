@@ -1,32 +1,32 @@
 <template>
-    <div class="comment">
+  <div class="comment">
+    <a href="">
+      <img
+        src="@/assets/image/default/user.png"
+        alt=""
+        class="comment__user-img"
+      />
+    </a>
+    <div>
+      <div class="comment__header">
         <a href="">
-              <img
-                src="https://source.unsplash.com/random"
-                alt=""
-                class="comment__user-img"
-              />
+          <h1 class="comment__user-name">닉네임</h1>
         </a>
-        <div>
-            <div class="comment__header">
-                <a href="">
-                    <h1 class="comment__user-name">닉네임</h1>
-                </a>
-                <span class="comment__time">1시간 전</span>
-            </div>
-            <p class="comment__contents">
-                댓글 내용입니다. Lorem ipsum, dolor sit amet consectetur
-                adipisicing elit. Pariatur consequatur accusantium nesciunt
-                similique nihil animi odio? Nam tempore in mollitia provident,
-                architecto, rem facilis dignissimos quisquam a id molestiae
-                cumque!
+        <span class="comment__time">1시간 전</span>
+      </div>
+      <p class="comment__contents">
+        댓글 내용입니다. Lorem ipsum, dolor sit amet consectetur
+        adipisicing elit. Pariatur consequatur accusantium nesciunt
+        similique nihil animi odio? Nam tempore in mollitia provident,
+        architecto, rem facilis dignissimos quisquam a id molestiae
+        cumque!
 
-                <button class="comment__contents-btn" type="button">
-                    더보기
-                </button>
-            </p>
-        </div>
+        <button class="comment__contents-btn" type="button">
+          더보기
+        </button>
+      </p>
     </div>
+  </div>
 </template>
 
 <script>
@@ -36,6 +36,10 @@ export default {
 </script>
 
 <style scoped>
+.comment {
+  margin-bottom: 10px;
+}
+
 .comment__user-img {
   width: 50px;
   height: 50px;
