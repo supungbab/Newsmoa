@@ -49,7 +49,8 @@
          <section>
           <h1 class="title">관련 뉴스</h1>
           <ol class="">
-            <li></li>
+            <li><NewsCompact/></li>
+            <li><NewsCompact/></li>
           </ol>
         </section>
      </aside>
@@ -57,12 +58,14 @@
 </template>
 
 <script>
-import Comment from '@/components/Comment'
+import Comment from '@/components/Comment';
+import NewsCompact from '@/components/NewsCompact';
 
 export default {
   name: 'NewsDetail',
   components: {
-    Comment
+    Comment,
+    NewsCompact
   },
   data() {
     return {
@@ -78,10 +81,6 @@ export default {
 </script>
 
 <style scoped>
-ol {
-  list-style: none;
-}
-
 .comment_list {
   padding: 0 15px;
 }
@@ -95,6 +94,7 @@ ol {
   list-style: none;
   display: flex;
   margin: 5px 0 30px;
+  font-size: 15px;
 }
 
 .news-detail__info li {

@@ -10,28 +10,25 @@
         <h1 class="news__title">
           메타버스 열풍…MZ세대가 끌고 게임업계가 주도한다
         </h1>
-        <p class="news__contents">
-          지속성·동시적 참여·독자적 경제체계 등 현실과 경계 없는 가상세계
-          게임 소셜미디어처럼 이해하는 MZ세대 메타버스 주도
-        </p>
+        
+        <div class="news-bottom">
+          <div class="news-bottom__left">
+          <div class="news__press">매일경제</div>
+          <span class="news__time">
+            <span class="icon__time blind"></span>11시간 전
+          </span>
+        </div>
 
-        <div class="news__info">
-          <div>
-            <span class="news__press">매일경제</span>
-            <span class="news__time">
-              <span class="icon__time blind"></span>11시간 전
-            </span>
-          </div>
-          <div>
-            <span class="icon__comment">
-              <span class="blind">댓글</span>
-              <span class="cnt">5</span>
-            </span>
-            <span class="icon__like">
-              <span class="blind">좋아요</span>
-              <span class="cnt">1</span>
-            </span>
-          </div>
+        <div class="news-bottom__right">
+          <span class="icon__comment">
+            <span class="blind">댓글</span>
+            <span class="cnt">5</span>
+          </span>
+          <span class="icon__like">
+            <span class="blind">좋아요</span>
+            <span class="cnt">1</span>
+          </span>
+        </div>
         </div>
       </div>
     </router-link>
@@ -40,7 +37,7 @@
 
 <script>
 export default {
-    name: 'News'
+    name: 'NewsCompact'
 }
 </script>
 
@@ -49,38 +46,31 @@ export default {
   display: flex;
   align-items: stretch;
   width: 100%;
-  height: 130px;
+  height: 90px;
   padding: 10px 0;
   border-bottom: 1px solid #dbdbdb;
 }
 
 .news__img {
-  width: 200px;
+  width: 100px;
   background-position: center;
   object-fit: cover;
 }
 
 .news__text-wrap {
-  width: 100%;
   position: relative;
+  width: 100%;
   margin: 0 10px;
 }
 
-.news__info {
+.news-bottom {
   position: absolute;
   bottom: 0;
   width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: flex-end;
   font-size: 14px;
-}
-
-.news__press {
-  margin-right: 3px;
-}
-
-.news__title {
-  margin-bottom: 10px;
 }
 
 .news__title {
@@ -89,7 +79,7 @@ export default {
   -webkit-line-clamp: 2;
   max-height: 50px;
   line-height: 25px;
-  font-size: 20px;
+  font-size: 15px;
   overflow: hidden;
 }
 
@@ -103,19 +93,9 @@ export default {
   overflow: hidden;
 }
 
-@media (max-width: 700px) {
-  .news {
-    height: 80px;
-  }
-
-  .news__img {
-    width: 120px;
-  }
-
-  .news__contents,
-  .news__like,
-  .news__comment {
-    display: none;
-  }
+.news__time,
+.news-bottom__right {
+  font-size: 13px;
 }
+
 </style>

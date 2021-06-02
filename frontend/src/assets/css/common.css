@@ -42,6 +42,10 @@ button:hover {
   cursor: pointer;
 }
 
+ol {
+  list-style: none;
+}
+
 .blind {
   position: absolute;
   width: 1px;
