@@ -13,11 +13,11 @@ def load_model():  # summary 모델 로드 함수
 mongo = MongoClient("localhost", 27017)
 db = mongo['newsmoa']
 col = db['boards']
-x = col.find({}, {"_id": 0, "index": 1, "content": 1})
+articles = col.find({}, {"_id": 0, "index": 1, "content": 1})
 
 model = load_model()
 tokenizer = get_kobart_tokenizer()
-for item in x:
+for item in articles:
     idx = item.get('index')
     text = item.get('content')
     if text:  # 2458자 이상의 문장은 오류
