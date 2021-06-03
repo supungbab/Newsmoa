@@ -12,7 +12,9 @@
 
         <form action="" class="gnb__search">
           <input type="text" class="input__sm"/>
-          <button type="submit" class="btn__sm--primary">검색</button>
+          <button type="submit" class="btn__search">
+            <span class="blind">검색</span>
+          </button>
         </form>
       </nav>
 </template>
@@ -43,13 +45,40 @@ export default {
   line-height: 45px;
 }
 
-.gnb__menu .active a {
-  font-weight: bold;
+.gnb__menu a:not(.gnb__menu .active a) {
+  transition: color ease-in .2s;
+}
+
+.gnb__menu a:hover {
   color: var(--primary-color);
 }
 
+.gnb__menu .active a {
+  font-weight: bold;
+  color: var(--primary-color);
+  cursor: default;
+}
+
 .gnb__search {
+  position: relative;
   display: flex;
+}
+
+.btn__search {
+  background: transparent;
+  border: 0;
+}
+
+.btn__search::before {
+  position: absolute;
+  content: '';
+  width: 15px;
+  height: 15px;
+  top: 50%;
+  right: 20px;
+  transform: translate(0%, -50%);
+  background: url(../../assets/image/icon/search.svg);
+  background-size: 15px;
 }
 
 @media (max-width: 700px) {

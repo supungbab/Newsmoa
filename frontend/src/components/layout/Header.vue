@@ -12,10 +12,12 @@
           </div>
         </div>
 
-        <div class="header__btn-group">
-          <button type="button">
-            <span> 다크모드 </span>
-          </button>
+        <div v-if="isLogin" class="header__btn-group">
+          <router-link to="/myPage" class="btn--primary text__sm">마이페이지</router-link>
+          <router-link to="/myPage" class="btn text__sm">로그아웃</router-link>
+        </div>
+
+        <div v-if="!isLogin" class="header__btn-group">
           <button id="btn-openLogin" class="btn" @click="showModal($event)">로그인</button>
           <button id="btn-openSignup" class="btn--primary" @click="showModal($event)">회원가입</button>
         </div>
@@ -38,7 +40,7 @@ export default {
       return {
         loginModal: false,
         signupModal: false,
-        modalId: ''
+        isLogin: false
       }
     },
     methods: {
@@ -46,7 +48,9 @@ export default {
         if (event.currentTarget.id === 'btn-openLogin') this.loginModal = true;
         if (event.currentTarget.id === 'btn-openSignup') this.signupModal = true;
       },
-      closeModal() {
+      closeModal(isLogin) {
+        console.log(isLogin)
+        this.isLogin = isLogin;
         this.loginModal = false;
         this.signupModal = false;
       },

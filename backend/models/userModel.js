@@ -34,7 +34,6 @@ const userSchema = new mongoose.Schema({
 	birth : { type: String, match:/^\d{4}-\d{2}-\d{2}$/, required : true },
 	sex : {type : Boolean, required : true},
 	email : {type : String, required : true},
-	address : {type : String, required : true},
 	number : {type:String, match:/^\d{3}-\d{3,4}-\d{4}$/},
 	fit : String,
 	taste : Array
