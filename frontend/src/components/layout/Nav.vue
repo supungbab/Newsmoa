@@ -1,13 +1,13 @@
 <template>
     <nav class="gnb">
         <ul class="gnb__menu">
-          <li class="active"><router-link to="/">추천</router-link></li>
+          <li class="active"><router-link to="/">종합</router-link></li>
           <li><router-link to="/">정치</router-link></li>
           <li><router-link to="/">경제</router-link></li>
           <li><router-link to="/">사회</router-link></li>
-          <li><router-link to="/">국제</router-link></li>
-          <li><router-link to="/">연예</router-link></li>
-          <li><router-link to="/">문화</router-link></li>
+          <li><router-link to="/">생활/문화</router-link></li>
+          <li><router-link to="/">세계</router-link></li>
+          <li><router-link to="/">IT/과학</router-link></li>
         </ul>
 
         <form action="" class="gnb__search">

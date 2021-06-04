@@ -23,7 +23,7 @@
               
               <div id="step2" v-if="currentStep === 2">
                 <TextInput v-model="user.name" field="name" rules="required" />
-                <TextInput v-model="user.birth" field="birth" type="date" rules="required|birth" />
+                <TextInput v-model="user.birth" field="birth" type="date" max="9999-12-31" rules="required|birth" />
 
                 <Validation-provider rules="required" v-slot="{ errors }" class="input-group">
                   <div>성별</div>
