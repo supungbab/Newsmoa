@@ -73,7 +73,7 @@ for cat, selecetor in category.items():
             content = re.match(r'.*?\▶', content).group(0) if re.match(r'.*?\▶', content) != None else content
             content = content[:-1]
 
-            news = {"index": boards.find().count() + 1, "title": title, "date": datetime, "media": media, "category": cat, "content":content, "topimg": topimage}
+            news = {"index": boards.find().count() + 1, "title": title, "date": datetime, "media": media, "category": cat, "content":content, "topimg": topimage, "comments": [], "likes": [], "summary":"", "hist": ""}
             #print(news)
             x = boards.update({"title": title}, dict(news), upsert=True)
             
