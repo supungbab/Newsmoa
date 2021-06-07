@@ -48,6 +48,7 @@ for cat, selecetor in category.items():
             topimage = soup.select("#section_body > ul.type06_headline > li:nth-child(" + str(j)+ ") > dl > dt.photo > a > img")[0].get("src")
         except:
             elem = browser.find_element_by_xpath("//*[@id='section_body']/ul[1]/li[" + str(j) + "]/dl/dt/a")
+            topimage = ""
 
         elem.click()
         try:
@@ -56,7 +57,7 @@ for cat, selecetor in category.items():
             datetime = soup.select("#main_content > div.article_header > div.article_info > div > span.t11")[0].text
             import datetime as dt
             from dateutil.parser import parse
-            n_mrdm = ' AM' if datetime[11:13] == '오전' else ' PM'
+            n_mrdm = ' AM' if datetime[12:14] == '오전' else ' PM'
             n_datetime = parse(datetime.replace(".", "-", 2).replace(".", "").replace("오전 ", "").replace("오후 ", "") + n_mrdm)
             now_date = dt.datetime.now()
             td = now_date - n_datetime
