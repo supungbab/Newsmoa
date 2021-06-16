@@ -1,8 +1,8 @@
 const userModel = require('../models/userModel');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
-//const SECRET_KEY = process.env.SECRET_KEY;
-const SECRET_KEY = "NewsmoaKey";
+const SECRET_KEY = process.env.SECRET_KEY;
+//const SECRET_KEY = "NewsmoaKey";
 
 
 const userController = {
@@ -12,7 +12,7 @@ const userController = {
 			//참고
 			console.log("토큰 발행", req.body)
 			const user = await userModel.find(req.body);
-			console.log(user,SECRET_KEY)
+			//console.log(user,SECRET_KEY)
 			if (user.length) {
 				const token = jwt.sign({
 					id: user[0].id
@@ -65,9 +65,12 @@ const userController = {
 		}
 	},
 	
-	findMyInfo : async(id)=>{
-		const result = await userModel.find().where('id').equals(id).select('salt nickname');
-		return result[0];
+	findMyInfo : async(req,res,next)=>{
+		const result = await userModel.find({id:res.locals.userId},{_id:false});
+		//console.log(result[0])
+		res.json({
+			me:result[0]
+		})
 	},
 }
 

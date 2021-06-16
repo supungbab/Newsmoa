@@ -100,9 +100,11 @@ export default {
       this.currentStep--;
     },
     onSubmit() {
-      console.log(this.user.pw);
+      //console.log(this.user.pw);
       usersApi.store(this.user).then(res => {
         console.log(res);
+        alert("가입이 완료되었습니다.");
+        this.$emit('close', false);
       }).catch(err => {
         console.error(err);
       })

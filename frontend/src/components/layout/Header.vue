@@ -2,19 +2,19 @@
     <header class="header">
         <div>
           <h1 class="header__logo">
-            <router-link to="/">
+            <a href='/' @click="check">
               <span class="blind">뉴스모아</span>
-            </router-link>
+            </a>
           </h1>
 
           <div class="header__text">
-            <span class="date">2021/05/09 (토)</span>
+            <!--<span class="date">2021/05/09 (토)</span>-->
           </div>
         </div>
 
         <div v-if="isLogin" class="header__btn-group">
           <router-link to="/myPage" class="btn--primary text__sm">마이페이지</router-link>
-          <router-link to="/myPage" class="btn text__sm">로그아웃</router-link>
+          <button @click="logout" class="btn text__sm">로그아웃</button>
         </div>
 
         <div v-if="!isLogin" class="header__btn-group">
@@ -29,6 +29,7 @@
 <script>
 import LoginModal from '@/views/login.vue'
 import SignupModal from '@/views/Signup.vue'
+import * as usersApi from '@/api/UsersApi';
 
 export default {
     name: 'Header',
@@ -41,6 +42,24 @@ export default {
         loginModal: false,
         signupModal: false,
         isLogin: false
+      }
+    },
+    created(){
+      //localStorage.setItem('category','')
+      if(this.$cookies.get("userToken")==undefined)
+        this.isLogin=false;
+      else{
+        usersApi.auth(this.$cookies.get("userToken")).then(res =>{
+          if(res.data.me){
+            this.isLogin=true;
+            this.$cookies.set('user',res.data.me.id);
+            this.$cookies.set('nickname',res.data.me.nickname);
+            //console.log(res.data.me)
+          }
+        }).catch(err=>{
+          console.log(err)
+          this.isLogin=false;
+        })
       }
     },
     methods: {
@@ -57,6 +76,15 @@ export default {
       switchModal() {
         this.loginModal = !this.loginModal;
         this.signupModal = !this.signupModal;
+      },
+      logout(){
+        this.$cookies.remove("userToken");
+        this.$cookies.remove('user');
+        this.$cookies.remove('nickname');
+        this.isLogin = false;
+      },
+      check(){
+        localStorage.setItem('category','')
       }
     }
     

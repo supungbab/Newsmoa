@@ -3,6 +3,7 @@
     <div class="wrap">
       <Header/>
       <Nav/>
+      <chat-box />
     </div>
     <router-view/>
   </div>
@@ -11,11 +12,13 @@
 <script>
 import Header from '@/components/layout/Header.vue'
 import Nav from '@/components/layout/Nav.vue'
+import ChatBox from '@/components/ChatBox'
 
 export default {
   components: {
     Header,
-    Nav
+    Nav,
+    ChatBox
   }
 }
 </script>

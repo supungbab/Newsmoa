@@ -39,6 +39,5 @@ const userSchema = new mongoose.Schema({
 	taste : Array
 });
 
-userSchema.set('collection', 'users'); 
-
+userSchema.set('collection', 'users');
 module.exports = mongoose.model('User', userSchema);

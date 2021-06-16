@@ -55,6 +55,7 @@
 
 <script>
 import ConfigModal from '@/views/MyPage-contents/ConfigModal.vue';
+import * as usersApi from '@/api/UsersApi';
 
 export default {
   name: 'MyPage',
@@ -83,6 +84,21 @@ export default {
     closeModal() {
       this.configModal = false;
     }
+  },
+  created(){
+    usersApi.auth(this.$cookies.get("userToken")).then(res =>{
+      if(res.data.me){
+        this.user.id=res.data.me.id
+        this.user.name=res.data.me.name
+        this.user.birth=res.data.me.birth
+        this.user.sex=res.data.me.sex
+        this.user.email=res.data.me.email
+        this.user.number=res.data.me.number
+        console.log(res.data.me)
+      }
+    }).catch(err=>{
+      console.log(err)
+    })
   }
 }
 </script>

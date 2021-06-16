@@ -1,35 +1,34 @@
 <template>
   <article>
-    <router-link to="/detail" class="news">
+    <router-link :to="{path:`detail/${items.index}`}" class="news">
       <img
-        src="@/assets/image/default/no_img.png"
+        :src="items.topimg"
         alt=""
         class="news__img"
       />
       <div class="news__text-wrap">
         <h1 class="news__title">
-          메타버스 열풍…MZ세대가 끌고 게임업계가 주도한다
+          {{items.title}}
         </h1>
         <p class="news__contents">
-          지속성·동시적 참여·독자적 경제체계 등 현실과 경계 없는 가상세계
-          게임 소셜미디어처럼 이해하는 MZ세대 메타버스 주도
+          {{items.content}}
         </p>
 
         <div class="news__info">
           <div>
-            <span class="news__press">매일경제</span>
+            <span class="news__press">{{items.media}}</span>
             <span class="news__time">
-              <span class="icon__time blind"></span>11시간 전
+              <span class="icon__time blind"></span>{{items.date}}
             </span>
           </div>
           <div>
             <span class="icon__comment">
               <span class="blind">댓글</span>
-              <span class="cnt">5</span>
+              <span class="cnt">{{commentCnt}}</span>
             </span>
             <span class="icon__like">
               <span class="blind">좋아요</span>
-              <span class="cnt">1</span>
+              <span class="cnt">{{likeCnt}}</span>
             </span>
           </div>
         </div>
@@ -39,8 +38,31 @@
 </template>
 
 <script>
+import * as BoardsApi from '@/api/BoardsApi';
 export default {
-    name: 'News'
+  
+  name: 'News',
+  props: {
+    items: { type: Object }
+  },
+  data(){
+    return{
+      commentCnt:0,
+      likeCnt:0
+    }
+  },
+  created(){
+    BoardsApi.getComment(this.items.index).then(res=>{
+      this.commentCnt=res.data.commentCount
+    }).catch(err=>{
+      console.log(err)
+    })
+    BoardsApi.getLike(this.items.index).then(res=>{
+      this.likeCnt=res.data.likeCount
+    }).catch(err=>{
+      console.log(err)
+    })
+  }
 }
 </script>
 

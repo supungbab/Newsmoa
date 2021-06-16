@@ -1,12 +1,20 @@
 const boardModel = require('../models/boardModel');
+const userModel = require('../models/userModel');
+const commentModel = require('../models/commentModel');
+const likeModel = require('../models/likeModel');
 
 //https://velopert.com/545 insert 배열 관련
+//https://wooooooak.github.io/web/2018/11/10/req.params-vs-req.query/ 파라미터, 쿼리 받아오는 방법
 
 const boardController = {
 	getBoards : async (req,res) =>{
 		try{
-			//console.log("Boards get 실행");
-			let boards = await boardModel.find({},{_id:false});
+			console.log("Boards get 실행",req.query);
+			let boards;
+			if(req.query.category==''||req.query.category==null)
+				boards = await boardModel.find({},{_id:false}).sort({index:-1});
+			else
+				boards = await boardModel.find({category:req.query.category},{_id:false}).sort({index:-1});
 			//console.log(boards);
 			res.json({
 				boards:boards
@@ -50,17 +58,17 @@ const boardController = {
 			console.log("Like put 실행",req.params.index);
 			let like = await boardModel.find({index:req.params.index},{_id:false, likes:true});
 			like = like[0].likes;
-			console.log(like,like.indexOf(req.body.id)) //테스트용 입니다.
-			if(like.indexOf(req.body.id)==-1){
+			console.log(like,like.indexOf(res.locals.userId)) //테스트용 입니다.
+			if(like.indexOf(res.locals.userId)==-1){
 				const result = await boardModel.updateOne({index : req.params.index},{
-					$addToSet:{likes:req.body.id} //테스트용 입니다.
+					$addToSet:{likes:res.locals.userId} //테스트용 입니다.
 					//$addToSet:{likes:res.locals.userId}
 				});
 			}
 			else{
 				console.log("성공?");
 				const result = await boardModel.updateOne({index : req.params.index},{
-					$pull:{likes:req.body.id} //테스트용 입니다.
+					$pull:{likes:res.locals.userId} //테스트용 입니다.
 					//$pull:{likes:res.locals.userId}
 				});
 			}
@@ -72,8 +80,25 @@ const boardController = {
 
 	getLike : async (req, res)=>{
 		try{
-			console.log("Like get 실행",req.params.index);
-			let like = await boardModel.find({index:req.params.index},{_id:false, likes:true});
+			//console.log("Like get 실행",req.params.index);
+			let like = await likeModel.find({index:req.params.index},{_id:false});
+			let likeCount = like.length;
+			//console.log(like, likeCount);
+			res.json({
+				//like:like,
+				likeCount:likeCount
+			})
+		} catch(error){
+			res.json({
+				likeCount:0
+			})
+		}
+	},
+
+	getLikeDetail : async (req, res)=>{
+		try{
+			//console.log("Like get 실행",req.params.index);
+			let like = await likeModel.find({index:req.params.index},{_id:false});
 			let likeCount = like[0].likes.length;
 			console.log(like, likeCount);
 			res.json({
@@ -81,44 +106,68 @@ const boardController = {
 				likeCount:likeCount
 			})
 		} catch(error){
-			res.sendStatus(500).json({ error: error.toString() });
+			res.json({
+				likeCount:0
+			})
 		}
 	},
 
-	putComment : async (req, res) =>{
+	postComment : async (req, res) =>{
 		try{
 			/*
 			put json 형식
 			{
-				"idx" : 댓글 고유값,
-				"user" : 유저명,
-				"commnet" : 댓글 내용
+				author : {type:mongoose.Schema.Types.ObjectId, ref:'user', required : true},
+				index : Number,
+				user : String,
+				comment : {type : String, required : true},
+				createdAt: {type: Date, default: Date.now}
 			}
 			*/
 			console.log("Comment put 실행",req.params.index);
-			req.body.date = new Date().toString();
 			console.log(req.body)
-			const result = await boardModel.updateOne({index : req.params.index},{
-				$push: { comments: req.body }
-			})
-			res.sendStatus(200);
+			const result = await new commentModel(req.body).save()
+			res.status(201).json({
+				result: 'ok'
+			});
 		} catch(error){
 			res.sendStatus(500).json({ error: error.toString()} );
 		}
+		return;
 	},
 
 	getComment : async (req, res)=>{
 		try{
-			console.log("Comment get 실행",req.params.index);
-			let comment = await boardModel.find({index:req.params.index},{comments:true});
-			let commentCount = comment[0].comments.length;
-			console.log(comment[0].comments,commentCount);
+			//console.log("getComment 실행",req.params.index);
+			let comment = await commentModel.find({index:req.params.index},{_id:false});
+			//console.log("여기통과",comment);
+			let commentCount = comment.length;
+			//console.log(comment, commentCount);
 			res.json({
-				comment:comment[0].comments,
+				//comments:comment,
 				commentCount:commentCount
 			})
 		} catch(error){
-			res.sendStatus(500).json({ error: error.toString() });
+			res.json({
+				commentCount:0
+			})
+		}
+	},
+	getCommentDetail : async (req, res)=>{
+		try{
+			console.log("getCommentDetail 실행",req.params.index);
+			let comment = await commentModel.find({index:req.params.index},{_id:false});
+			//console.log("여기통과",comment);
+			let commentCount = comment.length;
+			//console.log(comment, commentCount);
+			res.json({
+				comments:comment,
+				commentCount:commentCount
+			})
+		} catch(error){
+			res.json({
+				commentCount:0
+			})
 		}
 	},
 

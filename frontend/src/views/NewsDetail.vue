@@ -2,44 +2,40 @@
   <div class="wrap--main">
       <section class="main news-detail">
         <div class="news-detail__header">
-          <div>언론사 이름</div>
-          <h1 class="news_detail__title">뉴스 제목입니다.</h1>
+          <div>{{newsDetail.media}}</div>
+          <h1 class="news_detail__title">{{newsDetail.title}}</h1>
 
           <ul class="news-detail__info">
-            <li><span class="icon__time blind"></span>12시간 전</li>
-            <li><span class="icon__comment blind"></span> 댓글 2</li>
-            <li><span class="icon__like blind"></span> 좋아요 4</li>
+            <li><span class="icon__time blind"></span>{{newsDetail.date}}</li>
+            <li><span class="icon__comment blind"></span> 댓글 {{commentCnt}}</li>
+            <li><span class="icon__like blind"></span> 좋아요 {{likeCnt}}</li>
           </ul>
         </div>
 
-        <p class="news-detail__contents">
+        <div class="news-detail__contents">
           <img
-            src="https://source.unsplash.com/random"
+            :src="newsDetail.topimg"
             alt=""
             class="news-detail__contents__img"
           />
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe
-          recusandae voluptates voluptate itaque minus magnam autem repellat,
-          quo totam suscipit dolorem. Ullam nihil id soluta enim laboriosam,
-          dolor perferendis neque!
-        </p>
+          <p v-html="newsDetail.content"></p>
+        </div>
 
         <section class="wrap--comment">
           <h1 class="title">
             댓글
-            <span class="">2</span>
+            <span class="">{{commentCnt}}</span>
           </h1>
 
           <div class="comment_list">
             <p v-if="!isCommentNull" class="comment_list__empty">댓글이 없습니다</p>
             <ol v-if="isCommentNull">
-              <li><Comment/></li>
-              <li><Comment/></li>
+              <Comment v-for="(item, i) in newsComments" v-bind:items="newsComments[i]" v-bind:key="i"/>
             </ol>
 
             <form action="" class="comment__form">
-              <textarea class="textarea"></textarea>
-              <button type="submit" class="btn__sm--primary">입력</button>
+              <textarea class="textarea" v-model="commentText"></textarea>
+              <button type='button' @click="comment" class="btn__sm--primary">입력</button>
             </form>
           </div>
         </section>
@@ -59,6 +55,7 @@
 
 <script>
 import Comment from '@/components/Comment';
+import * as BoardsApi from '@/api/BoardsApi'
 import NewsCompact from '@/components/NewsCompact';
 
 export default {
@@ -69,12 +66,67 @@ export default {
   },
   data() {
     return {
-      commentCnt: 0
+      commentCnt: 0,
+      likeCnt:0,
+      newsDetail:{type:Object},
+      commentText:"",
+      newsComments:{type:Array},
+      newsLikes:{tpye:Array}
     }
+  },
+  created(){
+    this.getBoard()
+  },
+  methods : {
+      getBoard(){
+        console.log("뭐지")
+        BoardsApi.getBoardDetail(this.$route.params.index).then(res=>{
+          //console.log(res.data.board);
+          this.newsDetail = res.data.board;
+          let temp="";
+          for(let i=0;i<this.newsDetail.content.length;i++){
+            temp+=this.newsDetail.content[i];
+            if(this.newsDetail.content[i]=='.'&&(!(0<=this.newsDetail.content[i-1]&&this.newsDetail.content[i-1]<=9)&&!('a'<=this.newsDetail.content[i+1]&&this.newsDetail.content[i+1]<='z')))
+              temp+="<br><br>"
+          }
+          this.newsDetail.content = temp;
+          //console.log(this.newsDetail)
+        }).catch(err=>{
+          console.log(err);
+        });
+        BoardsApi.getCommentDetail(this.$route.params.index).then(res=>{
+          console.log("가져온다 댓글",res.data)
+          this.newsComments = res.data.comments
+          this.commentCnt=res.data.commentCount
+        }).catch(err=>{
+          console.log(err)
+        })
+        BoardsApi.getLikeDetail(this.$route.params.index).then(res=>{
+          console.log("가져온다 좋아요",res.data)
+          this.likeCnt=res.data.likeCount
+        }).catch(err=>{
+          console.log(err)
+        })
+      },
+      comment(){
+        let commentData={
+          index : Number(this.$route.params.index),
+          user : this.$cookies.get("user"),
+          nickname : this.$cookies.get("nickname"),
+          comment : this.commentText
+        }
+        BoardsApi.postComment(this.$route.params.index, commentData, this.$cookies.get("userToken")).then(res=>{
+          console.log(res.data);
+          this.commentText="";
+          this.getBoard();
+        }).catch(err=>{
+          console.log(err);
+        })
+      }
   },
   computed: {
     isCommentNull() {
-      return (this.commentCnt === 0) ? true : false;
+      return (this.commentCnt === 0) ? false : true;
     }
   }
 }

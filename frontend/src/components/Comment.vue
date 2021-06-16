@@ -1,37 +1,53 @@
 <template>
-  <div class="comment">
-    <a href="">
-      <img
-        src="@/assets/image/default/user.png"
-        alt=""
-        class="comment__user-img"
-      />
-    </a>
-    <div>
-      <div class="comment__header">
-        <a href="">
-          <h1 class="comment__user-name">닉네임</h1>
-        </a>
-        <span class="comment__time">1시간 전</span>
+  <li>
+    <div class="comment">
+      <a href="">
+        <img
+          src="@/assets/image/default/user.png"
+          alt=""
+          class="comment__user-img"
+        />
+      </a>
+      <div>
+        <div class="comment__header">
+          <a href="">
+            <h1 class="comment__user-name">{{items.nickname}}</h1>
+          </a>
+          <span class="comment__time">{{time}}</span>
+        </div>
+        <p class="comment__contents">
+          {{items.comment}}
+          <!--<button class="comment__contents-btn" type="button">
+            더보기
+          </button>-->
+        </p>
       </div>
-      <p class="comment__contents">
-        댓글 내용입니다. Lorem ipsum, dolor sit amet consectetur
-        adipisicing elit. Pariatur consequatur accusantium nesciunt
-        similique nihil animi odio? Nam tempore in mollitia provident,
-        architecto, rem facilis dignissimos quisquam a id molestiae
-        cumque!
-
-        <button class="comment__contents-btn" type="button">
-          더보기
-        </button>
-      </p>
     </div>
-  </div>
+  </li>
 </template>
 
 <script>
 export default {
-    name: 'Comment'
+    name: 'Comment',
+    props: {
+      items: { type: Object }
+    },
+    data(){
+      return{
+        time : ""
+      }
+    },
+    created(){
+      let tt = Math.floor((new Date()-new Date(this.items.createdAt))/1000/60);
+      console.log(tt)
+      if(tt<60){
+        this.time = tt + "분 전"
+      }else if(tt<3600){
+        this.time = Math.floor((tt/60)) + "시간 전"
+      }else{
+        this.time = Math.floor((tt/3600)) + "일 전"
+      }
+    }
 }
 </script>
 

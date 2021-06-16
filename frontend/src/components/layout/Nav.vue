@@ -1,13 +1,13 @@
 <template>
     <nav class="gnb">
         <ul class="gnb__menu">
-          <li class="active"><router-link to="/">종합</router-link></li>
-          <li><router-link to="/">정치</router-link></li>
-          <li><router-link to="/">경제</router-link></li>
-          <li><router-link to="/">사회</router-link></li>
-          <li><router-link to="/">생활/문화</router-link></li>
-          <li><router-link to="/">세계</router-link></li>
-          <li><router-link to="/">IT/과학</router-link></li>
+          <li @click="check"><router-link :to="{name: 'Home', params: {category: ''}}">종합</router-link></li>
+          <li @click="check"><router-link :to="{name: 'Category1', params: {category: '정치'}}">정치</router-link></li>
+          <li @click="check"><router-link :to="{name: 'Category2', params: {category: '경제'}}">경제</router-link></li>
+          <li @click="check"><router-link :to="{name: 'Category3', params: {category: '사회'}}">사회</router-link></li>
+          <li @click="check"><router-link :to="{name: 'Category4', params: {category: '생활/문화'}}">생활/문화</router-link></li>
+          <li @click="check"><router-link :to="{name: 'Category5', params: {category: '세계'}}">세계</router-link></li>
+          <li @click="check"><router-link :to="{name: 'Category6', params: {category: 'IT/과학'}}">IT/과학</router-link></li>
         </ul>
 
         <form action="" class="gnb__search">
@@ -21,8 +21,43 @@
 
 <script>
 export default {
-    name: 'Nav'
+    name: 'Nav',
+    data(){
+      return{
+        chk:['','정치','경제','사회','생활/문화','세계','IT/과학'],
+        category:localStorage.getItem('category')
+      }
+    },
+    mounted(){
+      let parent = document.getElementsByClassName('gnb__menu')[0].childNodes;
+      let category=localStorage.getItem('category');
+      if(category==null) category=''
+      let index=this.chk.indexOf(category)
+      let child=parent[index];
+      child.className='active';
+    },
+    methods : {
+      check(event){
+        //console.log(document.getElementsByClassName('gnb__menu')[0].childNodes,event.currentTarget)
+        let parent = document.getElementsByClassName('gnb__menu')[0].childNodes;
+        //console.log(parent.length)
+        for(let i=0;i<parent.length;i++){
+          let child=parent[i];
+          child.className='';
+        }
+        //document.getElementById('active').className='';
+        event.currentTarget.className='active';
+        //document.target.classList.add('active');
+      }
+    },
+    watch:{
+      category:function(){
+        console.log("변함")
+      }
+    }
 }
+//https://velog.io/@skyepodium/vue-router%EB%A1%9C-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%A0%84%EB%8B%AC%ED%95%98%EA%B8%B0-eskrsmr3
+// 데이터 전달 방법
 </script>
 
 <style scoped>
@@ -43,6 +78,10 @@ export default {
   box-sizing: border-box;
   width: 100px;
   line-height: 45px;
+}
+
+.gnb__menu a{
+  display : block;
 }
 
 .gnb__menu a:not(.gnb__menu .active a) {

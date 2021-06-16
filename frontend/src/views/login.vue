@@ -38,6 +38,7 @@
 
 <script>
 import * as authApi from '@/api/auth'
+import * as usersApi from '@/api/UsersApi';
 
 export default {
   name: 'LoginModal',
@@ -51,10 +52,30 @@ export default {
   methods: {
     login() {
       authApi.login(this.id, this.password).then(res => {
-        console.log('res',res.status);
-        
-        this.isLogin = true;
-        this.$emit('close', this.isLogin);
+        console.log('res',res.status,res.data);
+        if(res.status==201){
+          this.$cookies.set('userToken',res.data.token);
+          usersApi.auth(res.data.token).then(res =>{
+            if(res.data.me){
+              this.$cookies.set('user',res.data.me.id);
+              this.$cookies.set('nickname',res.data.me.nickname);
+              this.isLogin = true;
+              this.$emit('close', this.isLogin);
+              //console.log(res.data.me)
+            }
+          }).catch(err=>{
+            console.log(err)
+            alert('아이디나 비밀번호를 확인해주세요.')
+          })
+          //this.$cookies.set('userToken',res.data.token);
+          //this.$cookies.set('user',this.id);
+          //this.$cookies.set('nickname',res.data.me.nickname);
+          //this.isLogin = true;
+          //this.$emit('close', this.isLogin);
+        }
+        else{
+          alert('아이디나 비밀번호를 확인해주세요.')
+        }
       }).catch(err => {
         alert('아이디나 비밀번호를 확인해주세요.')
         console.log(err);

@@ -17,10 +17,12 @@ router.get('/create/:index', function(req, res) {
 //좋아요 입력, 가져오기 api
 router.put('/:index/like', boardController.putLike);
 router.get('/:index/like', boardController.getLike);
+router.get('/:index/likeDetail', boardController.getLikeDetail);
 
 //댓글 입력, 가져오기 api
-router.put('/:index/comment', verifyToken, boardController.putComment);
+router.post('/:index/comment', verifyToken, boardController.postComment);
 router.get('/:index/comment', boardController.getComment);
+router.get('/:index/commentDetail', boardController.getCommentDetail);
 
 //댓글 삭제 api
 router.delete('/:index/comment', verifyToken, boardController.deleteComment);

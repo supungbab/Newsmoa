@@ -10,10 +10,47 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
+    props: true
   },
   {
-    path: '/detail',
+    path: '/',
+    name: 'Category1',
+    component: Home,
+    props: true
+  },
+  {
+    path: '/',
+    name: 'Category2',
+    component: Home,
+    props: true
+  },
+  {
+    path: '/',
+    name: 'Category3',
+    component: Home,
+    props: true
+  },
+  {
+    path: '/',
+    name: 'Category4',
+    component: Home,
+    props: true
+  },
+  {
+    path: '/',
+    name: 'Category5',
+    component: Home,
+    props: true
+  },
+  {
+    path: '/',
+    name: 'Category6',
+    component: Home,
+    props: true
+  },
+  {
+    path: '/detail/:index',
     name: 'Detail',
     component: Detail
     // route level code-splitting
