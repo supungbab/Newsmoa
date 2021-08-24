@@ -1,14 +1,22 @@
-# Newsmoa
+# TodayMoon
+> 📬 뉴스모아
 
-## 2021-05-11 mongoose 연동 후 데이터 넣기 성공 및 모듈, db모델, 컨트롤러 기능 분할 완료
+<br />
 
-## 2021-05-12 댓글,좋아요 get/put/delete api 완료
+## 서비스 소개
+- 어플 '오늘의 헤더라인' 를 모티브로한 뉴스 사이트 (SPA) 졸업작품 프로젝트입니다.
 
-## 2021-05-17 유저 회원가입 api, 토큰 조회 미들웨어 api, 로그인 api 완료 
+<br />
 
-## 2021-05-24 뉴스 메인 get, 개별 get 및 프론트단에서 불러오기
+## 주요 기능
+- 뉴스기사,댓글,좋아요,로그인,회원가입,JWT토큰생성 등
+- Socket.IO를 이용해 관리자와 채팅
 
-Endpoint : localhost:3000
+<br />
 
-보드 관련 PATH : /boards
-유저 관련 PATH : /users
+## 기술 스택
+- HTML5/CSS3/JavaScript
+- Node.js/Express
+- Vue.js
+- JWT
+- Socket.IO
