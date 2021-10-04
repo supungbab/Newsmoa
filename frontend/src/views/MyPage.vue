@@ -33,20 +33,36 @@
       <aside class="aside">
         <ol class="my-page__nav">
           <li>
-            <button type="button" class="nav__item active">나의 댓글</button>
+            <button type="button" class="nav__item" @click="state=1" :class="{'active' : state===1 }">나의 댓글</button>
           </li>
           <li>
-            <button type="button" class="nav__item">내가 좋아요한 뉴스</button>
+            <button type="button" class="nav__item" @click="state=2" :class="{'active' : state===2 }">내가 좋아요한 뉴스</button>
           </li>
           <li>
-            <button type="button" class="nav__item">개인 정보 수정</button>
+            <button type="button" class="nav__item" @click="state=3" :class="{'active' : state===3 }">개인정보 수정</button>
           </li>
         </ol>
       </aside>
       
-      <div class="main">
+      <div v-if="state === 1" class="main">
+        <h1 class="main__title">나의 댓글</h1>
+        <div class="main__contents">
+          <CommentLog/>
+        </div>
+      </div>
+
+      <div v-if="state === 2" class="main">
+        <h1 class="main__title">내가 좋아요한 뉴스</h1>
+        <div class="main__contents">
+          <LikeLog/>
+        </div>
+      </div>
+
+      <div v-if="state === 3" class="main">
         <h1 class="main__title">내 정보</h1>
-        <div class="main__contents"></div>
+        <div class="main__contents">
+          <EditProfile/>
+        </div>
       </div>
     </div>
     
@@ -57,10 +73,14 @@
 import ConfigModal from '@/views/MyPage-contents/ConfigModal.vue';
 import * as usersApi from '@/api/UsersApi';
 
+import CommentLog from '@/views/MyPage-contents/CommentLog.vue';
+import LikeLog from '@/views/MyPage-contents/LikeLog.vue';
+import EditProfile from '@/views/MyPage-contents/EditProfile.vue';
+
 export default {
   name: 'MyPage',
   components: {
-    ConfigModal
+    CommentLog, LikeLog, EditProfile, ConfigModal
   },
   data() {
     return {
@@ -74,7 +94,11 @@ export default {
             sex: '0',
             email: 'test@exmple.com',
             number: '010-1111-1111'
-        }
+        },
+        state: 1,
+        commentCnt: 0,
+        userComments:{type:Array},
+        newsTitles: {type:Array}
     }
   },
   methods: {
@@ -88,6 +112,7 @@ export default {
   created(){
     usersApi.auth(this.$cookies.get("userToken")).then(res =>{
       if(res.data.me){
+        //유저 토큰을 이용해 데이터 조회 후 저장
         this.user.id=res.data.me.id
         this.user.name=res.data.me.name
         this.user.birth=res.data.me.birth
@@ -97,12 +122,18 @@ export default {
         console.log(res.data.me)
       }
     }).catch(err=>{
-      console.log(err)
-    })
+      console.log(err);
+      this.$router.push("/")
+    });
+  },
+  computed: {
+    isCommentNull() {
+      return (this.commentCnt === 0) ? false : true;
+    }
   }
 }
 </script>
-
+  
 <style scoped>
 .my-page__header {
   position: relative;
@@ -229,6 +260,31 @@ export default {
   top: 0;
   left: 0;
   background: var(--primary-color);
+}
+
+.main__contents {
+  padding-top: 20px;
+}
+
+.mylist {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}
+
+.mylist div{
+  display: flex;
+  height: 50px;
+  line-height: 50px;
+}
+
+.mylist div dt {
+  width: 100px;
+  border-right: 1px solid gray;
+}
+
+.mylist div dd {
+  padding-left: 30px;
 }
 
 

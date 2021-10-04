@@ -5,5 +5,9 @@ export async function store(user) {
 }
 
 export async function auth(token){
-    return http.get('users/me',{ headers: { 'x-access-token': token } })
+    return http.get('users/me', { headers: { 'x-access-token': token } })
+}
+
+export async function meUpdate(user, token){
+    return http.post('users/meUpdate', user,{ headers: { 'x-access-token': token } })
 }

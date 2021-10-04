@@ -67,11 +67,6 @@ export default {
             console.log(err)
             alert('아이디나 비밀번호를 확인해주세요.')
           })
-          //this.$cookies.set('userToken',res.data.token);
-          //this.$cookies.set('user',this.id);
-          //this.$cookies.set('nickname',res.data.me.nickname);
-          //this.isLogin = true;
-          //this.$emit('close', this.isLogin);
         }
         else{
           alert('아이디나 비밀번호를 확인해주세요.')
