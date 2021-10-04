@@ -53,6 +53,7 @@ export default {
     },
     created(){
         let vm=this; // this 를 미리 저장하는 이유는 소켓.on 으로 들어갈 때 this는 다른 영역이므로 ChatData 를 찾지 못함. 즉 window 상태의 this를 저장해야함
+        //화면이 로드될 때 방이 생성됩니다. 방은 랜덤 숫자값으로 생성됩니다.
         vm.$socket.on('connection', (data)=> {
             console.log('connect');
             if(data.type === 'connected') {
@@ -62,16 +63,18 @@ export default {
                 //console.log('여기서 계속 반복');
             }
         })
+        //시스템 메세지를 받을 준비를 합니다. 메세지가 소켓으로 들어올 시 chatdata에 저장합니다.
         vm.$socket.on('system', function(data) {
             console.log(data,"시스템 소켓")
             vm.ChatData=data.chatlog;
             $(".chat-logs").stop().animate({ scrollTop: $(".chat-logs")[0].scrollHeight}, 1000);
             //generate_message(data.message, 'user');
         });
-
+        //메세지를 받을 준비를 합니다. 메세지가 소켓으로 들어올 시 chatdata에 저장합니다.
         vm.$socket.on('message', function(data) {
             console.log(data,"메세지 소켓")
             vm.ChatData=data.chatlog;
+            //console.log(data.chatlog);
             $(".chat-logs").stop().animate({ scrollTop: $(".chat-logs")[0].scrollHeight}, 1000);
             //generate_message(data.message, 'user'); 
         });
@@ -79,6 +82,7 @@ export default {
     methods : {
         togle(){
             let vm=this
+            //메세지 토글을 선택 시 커넥션 소켓이 실행되어 처리됩니다.
             if(this.sw==0){
                 vm.$socket.emit('connection', {
                     type : 'join',
@@ -91,6 +95,7 @@ export default {
             $(".chat-box").toggle('scale');
         },
         send(){
+            //메세지 전송 소켓에 전송한다.
             if(this.msg.trim() != ''){
                 this.index++;
                 this.ChatData.push({"index":this.index,"msg":this.msg,"type":'user'})

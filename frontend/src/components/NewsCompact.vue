@@ -1,34 +1,23 @@
 <template>
   <article>
-    <router-link to="/detail" class="news">
+    <router-link :to="`detail/`+items.index" class="news">
       <img
-        src="@/assets/image/default/no_img.png"
+        :src="items.topimg"
         alt=""
         class="news__img"
       />
       <div class="news__text-wrap">
         <h1 class="news__title">
-          메타버스 열풍…MZ세대가 끌고 게임업계가 주도한다
+          {{items.title}}
         </h1>
         
         <div class="news-bottom">
           <div class="news-bottom__left">
-          <div class="news__press">매일경제</div>
-          <span class="news__time">
-            <span class="icon__time blind"></span>11시간 전
-          </span>
-        </div>
-
-        <div class="news-bottom__right">
-          <span class="icon__comment">
-            <span class="blind">댓글</span>
-            <span class="cnt">5</span>
-          </span>
-          <span class="icon__like">
-            <span class="blind">좋아요</span>
-            <span class="cnt">1</span>
-          </span>
-        </div>
+            <div class="news__press">{{items.media}}</div>
+            <span class="news__time">
+              <span class="icon__time blind"></span>{{items.date}}
+            </span>
+          </div>
         </div>
       </div>
     </router-link>
@@ -37,7 +26,10 @@
 
 <script>
 export default {
-    name: 'NewsCompact'
+    name: 'NewsCompact',
+    props : {
+      items : {}
+    }
 }
 </script>
 

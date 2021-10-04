@@ -39,7 +39,7 @@ export default {
     },
     created(){
       let tt = Math.floor((new Date()-new Date(this.items.createdAt))/1000/60);
-      console.log(tt)
+      //console.log(tt)
       if(tt<60){
         this.time = tt + "분 전"
       }else if(tt<3600){

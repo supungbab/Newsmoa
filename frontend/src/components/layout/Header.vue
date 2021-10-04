@@ -77,11 +77,13 @@ export default {
         this.loginModal = !this.loginModal;
         this.signupModal = !this.signupModal;
       },
+      //로그아웃 버튼 클릭시 쿠키에 있는 해당 데이터를 삭제한 후 메인으로 이동한다.
       logout(){
         this.$cookies.remove("userToken");
         this.$cookies.remove('user');
         this.$cookies.remove('nickname');
         this.isLogin = false;
+        this.$router.push("/");
       },
       check(){
         localStorage.setItem('category','')

@@ -1,9 +1,9 @@
 <template>
-    <div :class="`chat-msg ${items.type}`">
-        <span class="msg-avatar">
+    <div :class="`chat-msg2 ${items.type}`">
+        <span class="msg-avatar2">
             <i class="material-icons">account_circle</i>
         </span>
-        <div class="cm-msg-text">
+        <div class="cm-msg-text2">
             {{items.msg}}
         </div>
     </div>
@@ -11,7 +11,7 @@
 
 <script>
     export default {
-        name:'chat-msg',
+        name:'debate-msg',
         props:{
             items: { type: Object }
         }
