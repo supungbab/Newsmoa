@@ -12,6 +12,8 @@ router.post("/signin",userController.createToken);
 //회원정보
 router.get("/me",verifyToken,userController.findMyInfo);
 
+//회원정보 수정
+router.post("/meUpdate",verifyToken, userController.meUpdate);
 
 console.log("users done");
 
