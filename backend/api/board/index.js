@@ -27,7 +27,7 @@ router.get('/:index/commentDetail', boardController.getCommentDetail);
 router.get('/commentUser/:user', boardController.getCommentUser);
 
 //댓글 삭제 api
-router.delete('/:index/comment', verifyToken, boardController.deleteComment);
+router.put('/:index/comment', verifyToken, boardController.deleteComment);
 
 console.log("boards done");
 

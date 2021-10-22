@@ -2,7 +2,9 @@ const boardModel = require('../models/boardModel');
 const userModel = require('../models/userModel');
 const commentModel = require('../models/commentModel');
 const likeModel = require('../models/likeModel');
-const badwords = require('../curseData/badword')
+const badwords = require('../curseData/badword');
+
+const { ObjectId } = require('mongodb');
 //https://velopert.com/545 insert 배열 관련
 //https://wooooooak.github.io/web/2018/11/10/req.params-vs-req.query/ 파라미터, 쿼리 받아오는 방법
 
@@ -212,7 +214,7 @@ const boardController = {
 	getCommentDetail : async (req, res)=>{
 		try{
 			console.log("getCommentDetail 실행",req.params.index);
-			let comment = await commentModel.find({index:req.params.index},{_id:false});
+			let comment = await commentModel.find({index:req.params.index});
 			let commentCount = comment.length;
 			//console.log(comment, commentCount);
 			//해당 index의 댓글 수 및 댓글들을 전송
@@ -230,7 +232,7 @@ const boardController = {
 		try{
 			console.log("getCommentUser 실행",req.params.user);
 			//마이페이지 용 해당 유저가 댓글 단 게시글 조회
-			let comment = await commentModel.find({user:req.params.user},{_id:false});
+			let comment = await commentModel.find({user:req.params.user});
 			//커멘트 컬렉션에서 해당 유저 조회 후 저장
 			let commentUser=[];
 			//저장 된 배열안에서 보드 컬렉션에서 index 조회 후 변수에 저장
@@ -238,6 +240,7 @@ const boardController = {
 				let board = await boardModel.find({index:comment[i].index},{_id:false});
 				commentUser.push({
 					index:comment[i].index,
+					_id:comment[i]._id,
 					topimg:board[0].topimg,
 					title:board[0].title,
 					createdAt:comment[i].createdAt,
@@ -264,10 +267,14 @@ const boardController = {
 				"user" : 유저명
 			}
 			*/
-			console.log("Comment delete 실행",req.params.index);
-			const result = await boardModel.updateOne({index : req.params.index},{
-				$pull: { comments: req.body }
+			console.log("Comment delete 실행",req.body);
+			const result = await commentModel.deleteOne({
+				index : req.body.index,
+				_id : ObjectId(req.body.idx),
+				user : res.locals.userId
 			});
+			//const tt = await commentModel.find({_id : ObjectId(req.body.idx)})
+			//console.log(tt);
 			res.sendStatus(200);
 		} catch(error){
 			res.sendStatus(500).json({ error: error.toString()} );
