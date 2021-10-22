@@ -24,6 +24,10 @@ export async function getCommentUser(user){
 export async function postComment(index, comment, token){
     return http.post('boards/'+index+'/comment', comment, { headers: { 'x-access-token': token } })
 }
+//delete 형식으로 백엔드에 전송. 이때 보안 토큰을 보내 해킹을 방지한다.
+export async function deleteComment(index, commentIdx, token){
+    return http.put('boards/'+index+'/comment', commentIdx, { headers: { 'x-access-token': token } })
+}
 //선택한 index의 좋아요 수를 불러온다.
 export async function getLike(index){
     return http.get('boards/'+index+'/like')

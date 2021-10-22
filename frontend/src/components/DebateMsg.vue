@@ -1,9 +1,7 @@
 <template>
-    <div :class="`chat-msg2 ${items.type}`">
-        <span class="msg-avatar2">
-            <i class="material-icons">account_circle</i>
-        </span>
-        <div class="cm-msg-text2">
+    <div :class="`${items.type}`">
+        <p class="user">{{items.user}}</p>
+        <div class="msg">
             {{items.msg}}
         </div>
     </div>

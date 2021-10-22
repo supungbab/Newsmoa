@@ -37,7 +37,7 @@
           <div class="comment_list">
             <p v-if="!isCommentNull" class="comment_list__empty">댓글이 없습니다</p>
             <ol v-if="isCommentNull">
-              <Comment v-for="(item, i) in newsComments" v-bind:items="newsComments[i]" v-bind:key="i"/>
+              <Comment v-on:update="getBoard()" v-for="(item, i) in newsComments" v-bind:items="newsComments[i]" v-bind:key="i"/>
             </ol>
 
             <form action="" class="comment__form">
@@ -52,7 +52,7 @@
          <section>
           <h1>토론방</h1>
           <br>
-          <Debate />
+          <Debate :room="`${this.$route.params.index}`"/>
           <!--
           <ol class="">
             <li><NewsCompact/></li>

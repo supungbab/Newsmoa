@@ -5,7 +5,7 @@
   </div>
 
   <div v-if="isListNull">
-    <CommentWithNews v-for="(item, i) in commentUser" v-bind:items="commentUser[i]" v-bind:key="i" />
+    <CommentWithNews v-on:update="getCommentUser()" v-for="(item, i) in commentUser" v-bind:items="commentUser[i]" v-bind:key="i" />
   </div>
 </div>
 </template>
@@ -30,11 +30,16 @@ export default {
     }
   },
   created(){
-    BoardsApi.getCommentUser(this.$cookies.get("user")).then(res=>{
-      this.commentUser=res.data.commentUser;
-    }).catch(err=>{
-      console.log(err);
-    })
+    this.getCommentUser();
+  },
+  methods:{
+    getCommentUser(){
+      BoardsApi.getCommentUser(this.$cookies.get("user")).then(res=>{
+        this.commentUser=res.data.commentUser;
+      }).catch(err=>{
+        console.log(err);
+      })
+    }
   }
 }
 </script>

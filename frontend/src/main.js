@@ -14,6 +14,10 @@ import io from 'socket.io-client';
 const serverURL='http://localhost:8082'
 const socket = io.connect(serverURL, { transports: ['websocket'] });
 Vue.prototype.$socket = socket;
+
+const serverURL2='http://localhost:8083'
+const socket2 = io.connect(serverURL2, { transports: ['websocket'] });
+Vue.prototype.$socket2 = socket2;
 //console.log(socket)
 
 new Vue({

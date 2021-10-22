@@ -1,20 +1,17 @@
 <template>
   <li>
     <div class="cmt-w-news">
-      <a :href="`detail/`+items.index" class="cmt-w-news__header">
-        <img
-          :src="items.topimg"
-          alt=""
-          class="cmt-w-news__img"
-        />
+      <a :href="`detail/` + items.index" class="cmt-w-news__header">
+        <img :src="items.topimg" alt="" class="cmt-w-news__img" />
         <div>
-          <h1 class="cmt-w-news__title">{{items.title}}</h1>
-          <span class="comment__time">{{items.createAt}}</span>
+          <h1 class="cmt-w-news__title">{{ items.title }}</h1>
+          <span class="comment__time">{{ items.createAt }}</span>
         </div>
       </a>
+      <button class="comment__del-btn btn__sm--primary" @click="delComment">삭제</button>
       <div>
         <p class="comment__contents">
-          댓글 : {{items.comment}}
+          댓글 : {{ items.comment }}
           <!--<button class="comment__contents-btn" type="button">
             더보기
           </button>-->
@@ -25,12 +22,35 @@
 </template>
 
 <script>
+import * as BoardsApi from "@/api/BoardsApi";
+
 export default {
-    name: 'CommentWithNews',
-    props : {
-      items : {}
+  name: "CommentWithNews",
+  props: {
+    items: {},
+  },
+  methods: {
+    delComment() {
+      console.log(this.items)
+      
+      let commentIdx = {
+        index: this.items.index, // 댓글 인덱스
+        idx: this.items._id
+      };
+      if(confirm("댓글을 삭제 하시겠습니까?")){
+        console.log(commentIdx);
+        BoardsApi.deleteComment(commentIdx.index,commentIdx,this.$cookies.get("userToken"))
+          .then((res) => {
+            console.log(res.data);
+            this.$emit('update');
+          })
+          .catch(() => {
+            alert("삭제하실 수 없습니다.");
+          });
+      }
     }
-}
+  }
+};
 </script>
 
 <style scoped>
@@ -60,9 +80,9 @@ li {
 
 .cmt-w-news__title {
   display: block;
-	white-space: no-wrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
+  white-space: no-wrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-size: 16px;
   align-self: center;
 }
@@ -87,5 +107,9 @@ li {
   bottom: 0;
   background-color: rgba(255, 255, 255, 0.5);
   border: 0;
+}
+
+.comment__del-btn {
+  float: right;
 }
 </style>
