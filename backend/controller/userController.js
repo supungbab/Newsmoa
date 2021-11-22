@@ -56,7 +56,7 @@ const userController = {
 			req.body.fit="";
 			req.body.taste=[];
 			//받아온 req.body를 유저 컬렉션에 save 후 상태코드 전송
-			const user = await new userModel(req.body).save();
+			const user = await userModel(req.body).save();
 			res.status(201).json({
 				result: 'ok',
 				user: user
@@ -76,8 +76,10 @@ const userController = {
 		})
 	},
 	meUpdate : async(req,res,next)=>{
+		console.log(req.body);
 		try{
-			const result = await userModel.updateOne(req.body);
+			const query = {id:req.body.id}
+			const result = await userModel.updateOne(query,req.body);
 			//마이페이지 회원정보 수정에서 변경된 데이터를 updateOne을 통해 변경
 			res.sendStatus(201);
 		}catch(err){
