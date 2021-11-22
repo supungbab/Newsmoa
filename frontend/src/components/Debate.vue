@@ -54,8 +54,14 @@ export default {
         
         vm.$socket2.on('message', function(data) {
             console.log(data,"메세지 소켓")
-            //vm.DebateData.push(data);
+            vm.DebateData.push(data);
             //console.log(data);
+            vm.$nextTick(function() {
+                let chatBody = document.querySelector(".chatBody");
+                let chatLog = document.querySelector(".chatLog");
+                chatBody.scrollTop = (chatLog.scrollHeight)
+                //console.log(chatBody.scrollTop,chatLog.scrollHeight);
+            })
         });
     },
     methods : {
@@ -63,10 +69,11 @@ export default {
             usersApi.auth(this.$cookies.get("userToken")).then(res =>{
                 if(this.msg.trim() != ''){
                     this.index++;
-                    this.DebateData.push({"user":res.data.me.id,"msg":this.msg,"type":'me'})
+                    this.DebateData.push({"user":res.data.me.id,"nickname":res.data.me.nickname,"msg":this.msg,"type":'me'})
                     let vm=this;
                     this.$socket2.emit('chat', {
                         "user" : res.data.me.id,
+                        "nickname":res.data.me.nickname,
                         "msg" : vm.msg,
                         "room" : vm.debateRoom,
                         "type" : 'another'
